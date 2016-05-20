@@ -5,22 +5,26 @@ var mongoose = require('mongoose'),
 var User = new Schema({
     username: String,
     password: String,
-    firstname: {
+    first_name: {
         type: String,
         default: ''
     },
-    lastname: {
+    last_name: {
         type: String,
         default: ''
     },
     admin: {
         type: Boolean,
         default: false
+    },
+    profile_image: {
+        type: String,
+        default: ''
     }
 });
 
 User.methods.getName = function () {
-    return (this.firstname + ' ' + this.lastname);
+    return (this.first_name + ' ' + this.last_name);
 };
 
 User.plugin(passportLocalMongoose);
@@ -30,6 +34,6 @@ module.exports = function () {
     try {
         model = mongoose.model('User');
     }
-    catch(err) { }
+    catch (err) { }
     return model || mongoose.model('User', User);
 }
